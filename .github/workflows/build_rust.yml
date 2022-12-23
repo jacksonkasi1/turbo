@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     container: node:alpine
     steps:
-      - run: apk add git go protoc build-base clang ldd curl rust cargo gcc musl-dev libtool g++
+      - run: apk add git go protoc build-base clang curl rust cargo gcc musl-dev libtool g++
       - uses: hecrj/setup-rust-action@v1
         with:
           rust-version: stable
