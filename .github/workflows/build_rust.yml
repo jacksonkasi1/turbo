@@ -18,8 +18,7 @@ jobs:
     steps:
       - run: apk add git go protoc build-base clang rustup cargo gcc musl-dev libtool g++
       - run: /usr/bin/rustup-init -y
-      - run: source "$HOME/.cargo/env"
-      - run: rustup target add x86_64-unknown-linux-musl
+      - run: ~/.cargo/bin/rustup target add x86_64-unknown-linux-musl
       - uses: actions/checkout@v3
       - name: Download artifact
         id: download-artifact
@@ -32,7 +31,7 @@ jobs:
           path: cli/libturbo
           if_no_artifact_found: fail
       - name: Build release binary
-        run: RUSTFLAGS="-Ctarget-feature=+crt-static -Clink-self-contained=yes" cargo build --release -p turbo-mock --target x86_64-unknown-linux-musl
+        run: RUSTFLAGS="-Ctarget-feature=+crt-static -Clink-self-contained=yes" ~/.cargo/bin/cargo build --release -p turbo-mock --target x86_64-unknown-linux-musl
       - name: Strip binary from debug symbols
         run: strip target/x86_64-unknown-linux-musl/release/turbo-mock
       - name: Upload Artifacts
